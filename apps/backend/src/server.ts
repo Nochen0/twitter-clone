@@ -1,11 +1,23 @@
-import 'reflect-metadata'
-import Container, { Service } from 'typedi';
+import "reflect-metadata"
+import Fastify from "fastify"
+import { buildSchema } from "type-graphql"
+import Container from "typedi"
+import mercurius from "mercurius"
+import { HelloResolver } from "./hello/hello.resolver"
 
-@Service() 
-class Server {
-    init() {
-        console.log('Server started');
-    }
+async function main() {
+  const app = Fastify()
+  const schema = await buildSchema({
+    resolvers: [HelloResolver],
+    container: Container,
+  })
+  app.register(mercurius, {
+    schema,
+    jit: 1,
+    ide: true,
+  })
+  const url = await app.listen({ port: 4000 })
+  console.log(`Server running at ${url}/graphiql`)
 }
 
-Container.get(Server).init()
+main().catch(console.error)
