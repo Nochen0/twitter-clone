@@ -3,12 +3,12 @@ import Fastify from "fastify"
 import { buildSchema } from "type-graphql"
 import Container from "typedi"
 import mercurius from "mercurius"
-import { HelloResolver } from "./hello/hello.resolver"
+import { AuthResolver } from "./auth/auth.resolver"
 
 async function main() {
   const app = Fastify()
   const schema = await buildSchema({
-    resolvers: [HelloResolver],
+    resolvers: [AuthResolver],
     container: Container,
   })
   app.register(mercurius, {

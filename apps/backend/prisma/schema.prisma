@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique()
+  username     String    @db.VarChar(50)
+  password     String    @db.VarChar(20)
+  createdAt    DateTime  @default(now())
+  description  String?   @db.VarChar(160)
+  website      String?   @db.VarChar(100)
+  location     String?   @db.VarChar(30)
+  followers    Follows[] @relation("following")
+  following    Follows[] @relation("follower")
+  tweets       Tweet[]   @relation("author")
+  comments     Comment[] @relation("author")
+  tweetLikes   Tweet[]
+  commentLikes Comment[]
+}
+
+model Follows {
+  follower    User   @relation("follower", fields: [followerId], references: [id])
+  followerId  String
+  following   User   @relation("following", fields: [followingId], references: [id])
+  followingId String
+
+  @@id([followerId, followingId])
+}
+
+model Tweet {
+  id        String    @id @default(uuid())
+  content   String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  author    User      @relation("author", fields: [userId], references: [id])
+  userId    String
+  likes     User[]
+  comments  Comment[]
+}
+
+model Comment {
+  id        String    @id @default(uuid())
+  content   String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  author    User      @relation("author", fields: [userId], references: [id])
+  userId    String
+  likes     User[]
+  Tweet     Tweet?    @relation(fields: [tweetId], references: [id])
+  tweetId   String?
+  children  Comment[] @relation("commentChildren")
+  parent    Comment?  @relation("commentChildren", fields: [parent_id], references: [id])
+  parent_id String?
+}
