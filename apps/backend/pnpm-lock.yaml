@@ -14,6 +14,9 @@ dependencies:
   class-validator:
     specifier: ^0.14.0
     version: 0.14.0
+  dotenv:
+    specifier: ^16.3.1
+    version: 16.3.1
   fastify:
     specifier: ^4.18.0
     version: 4.18.0
@@ -30,8 +33,8 @@ dependencies:
     specifier: ^0.1.13
     version: 0.1.13
   type-graphql:
-    specifier: 2.0.0-beta.2
-    version: 2.0.0-beta.2(class-validator@0.14.0)(graphql@16.7.1)
+    specifier: 2.0.0-beta.1
+    version: 2.0.0-beta.1(class-validator@0.14.0)(graphql@16.7.1)
   typedi:
     specifier: ^0.10.0
     version: 0.10.0
@@ -347,11 +350,22 @@ packages:
       '@types/node': 20.3.1
     dev: true
 
+  /@types/glob@8.1.0:
+    resolution: {integrity: sha512-IO+MJPVhoqz+28h1qLAcBEH2+xHMK6MTyHJc7MTnnYb6wsoLR29POVGJ7LycmVXIqyy/4/2ShP5sUwTXuOwb/w==}
+    dependencies:
+      '@types/minimatch': 5.1.2
+      '@types/node': 20.3.1
+    dev: false
+
   /@types/jsonwebtoken@9.0.2:
     resolution: {integrity: sha512-drE6uz7QBKq1fYqqoFKTDRdFCPHd5TCub75BM+D+cMx7NU9hUz7SESLfC2fSCXVFMO5Yj8sOWHuGqPgjc+fz0Q==}
     dependencies:
       '@types/node': 20.3.1
     dev: true
+
+  /@types/minimatch@5.1.2:
+    resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
+    dev: false
 
   /@types/node@20.3.1:
     resolution: {integrity: sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==}
@@ -652,6 +666,11 @@ packages:
     resolution: {integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==}
     engines: {node: '>=0.3.1'}
     dev: true
+
+  /dotenv@16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+    engines: {node: '>=12'}
+    dev: false
 
   /ecdsa-sig-formatter@1.0.11:
     resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
@@ -1607,19 +1626,19 @@ packages:
   /tslib@2.5.3:
     resolution: {integrity: sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==}
 
-  /type-graphql@2.0.0-beta.2(class-validator@0.14.0)(graphql@16.7.1):
-    resolution: {integrity: sha512-MCGxRvNADu5Wp9QEudI/WQgiqHJfjanGcKRk/ErCow6IaG04NNI7o3bjjxQVWC+qDundSOhmaquNdjDiiTbcqQ==}
+  /type-graphql@2.0.0-beta.1(class-validator@0.14.0)(graphql@16.7.1):
+    resolution: {integrity: sha512-eafe1WJAdiCTEma43Imi1NRRgioIL1nk2FIprpQ0uvodcpIz0uoR+SZgRGu0AXof7DdcrlL3ZdRVoOiuolOQMA==}
     engines: {node: '>= 14.5.0'}
+    requiresBuild: true
     peerDependencies:
-      class-validator: '>=0.14.0'
+      class-validator: '>=0.13.0'
       graphql: ^16.6.0
-    peerDependenciesMeta:
-      class-validator:
-        optional: true
     dependencies:
+      '@types/glob': 8.1.0
       '@types/node': 20.3.1
       '@types/semver': 7.5.0
       class-validator: 0.14.0
+      glob: 8.1.0
       graphql: 16.7.1
       graphql-query-complexity: 0.12.0(graphql@16.7.1)
       graphql-subscriptions: 2.0.0(graphql@16.7.1)

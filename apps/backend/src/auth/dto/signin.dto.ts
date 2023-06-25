@@ -1,13 +1,13 @@
-import { IsEmail, IsString } from "class-validator"
+import { IsEmail, IsNotEmpty } from "class-validator"
 import { ArgsType, Field } from "type-graphql"
 
 @ArgsType()
 export class SigninDto {
-  @IsEmail()
   @Field()
+  @IsEmail()
   email!: string
 
-  @IsString()
   @Field()
+  @IsNotEmpty()
   password!: string
 }
