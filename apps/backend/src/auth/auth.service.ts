@@ -1,9 +1,9 @@
 import { Service } from "typedi"
-import { SignupDto } from "./dto/signup.dto"
 import { UserRepository } from "../user/user.repository"
 import * as bcrypt from "bcrypt"
 import { JwtService } from "../jwt/jwt.service"
-import { SigninDto } from "./dto/signin.dto"
+import { SigninArgs } from "./dto/signin.dto"
+import { SignupArgs } from "./dto/signup.dto"
 
 @Service()
 export class AuthService {
@@ -12,7 +12,7 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async signin({ email, password }: SigninDto) {
+  async signin({ email, password }: SigninArgs) {
     const user = await this.userRepository.find({ email })
     if (!user) throw new Error(`User not found for ${email}`)
     const valid = await bcrypt.compare(password, user.password)
@@ -21,11 +21,9 @@ export class AuthService {
     return token
   }
 
-  async signup({ email, username, password }: SignupDto) {
+  async signup({ email, username, password }: SignupArgs) {
     const user = await this.userRepository.find({ email })
-
     if (user) throw new Error(`Email already in use for ${email}`)
-
     const newUser = await this.userRepository.create({
       email,
       username,

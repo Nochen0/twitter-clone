@@ -1,9 +1,9 @@
 import { Args, Ctx, Mutation, Query, Resolver } from "type-graphql"
 import { Service } from "typedi"
-import { SignupDto } from "./dto/signup.dto"
 import { AuthService } from "./auth.service"
-import { SigninDto } from "./dto/signin.dto"
 import { GraphQLContext } from "../types/graphql-context.type"
+import { SigninArgs } from "./dto/signin.dto"
+import { SignupArgs } from "./dto/signup.dto"
 
 @Service()
 @Resolver()
@@ -12,7 +12,7 @@ export class AuthResolver {
 
   @Query(() => String)
   async signin(
-    @Args() signinData: SigninDto,
+    @Args() signinData: SigninArgs,
     @Ctx() { reply }: GraphQLContext
   ) {
     const token = await this.authService.signin(signinData)
@@ -27,7 +27,7 @@ export class AuthResolver {
 
   @Mutation(() => String)
   async signup(
-    @Args() signupData: SignupDto,
+    @Args() signupData: SignupArgs,
     @Ctx() { reply }: GraphQLContext
   ) {
     const token = await this.authService.signup(signupData)

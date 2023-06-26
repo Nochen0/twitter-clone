@@ -2,7 +2,7 @@ import { IsEmail, Length } from "class-validator"
 import { ArgsType, Field } from "type-graphql"
 
 @ArgsType()
-export class SignupDto {
+export class SignupArgs {
   @Field()
   @IsEmail()
   email!: string
